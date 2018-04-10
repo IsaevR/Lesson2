@@ -11,9 +11,9 @@ namespace ConsoleApp9
             {
                 
                 var s = Console.ReadLine();
-                var datestart = DateTime.Now;
+                var datestart = DateTime.Now;              // Сохраняям текущее время в переменной 
                 Console.WriteLine(Parse(s));
-                Console.WriteLine(DateTime.Now-datestart);
+                Console.WriteLine(DateTime.Now-datestart); // Отображает время за прериод вычислений 
                
             }
             
