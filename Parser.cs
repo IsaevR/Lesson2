@@ -10,11 +10,12 @@ namespace Parser
             while (true)
             {
                 
-                var s = Console.ReadLine();      // записывает строку в переменной "s"
-                var datestart = DateTime.Now;    // сохраняет текущее время в переменной "datestart" 
-                Console.WriteLine(Parse(s));     
+                var s = Console.ReadLine();                // записывает строку в переменной "s"
+                var datestart = DateTime.Now;              // сохраняет текущее время в переменной "datestart" 
+                Console.WriteLine(Parse(s));
+                Console.WriteLine("\nВремя выполнения вычислений");
                 Console.WriteLine(DateTime.Now-datestart); // вычитает время старта программы от времени 
-                                                           // его завершения 
+                                                           // его завершения (время выполнения)
                
             }
             
@@ -27,19 +28,19 @@ namespace Parser
         static int Parse(string s)
         {
             int index = 0;
-            int num = Num(s, ref index);
+            int num = MultDiv(s, ref index);
             while (index < s.Length)
             {
                 if (s[index] == '+')
                 {
                     index++;
-                    int b = Num(s, ref index);
+                    int b = MultDiv(s, ref index);
                     num += b;
                 }
                 else if (s[index] == '-')
                 {
                     index++;
-                    int b = Num(s, ref index);
+                    int b = MultDiv(s, ref index);
                     num -= b;
                 }
                 else
@@ -52,12 +53,14 @@ namespace Parser
         }
         /// <summary>
         /// Метод MultDiv выполняет умножение и деление
+        /// И возвращает "num" - значение с ответом
+        /// выполненного действия 
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        static int MultDiv(string s)
+        static int MultDiv(string s, ref int index)
         {
-            int index = 0;
+            
             int num = Num(s, ref index);
             while (index < s.Length)
             {
@@ -74,15 +77,22 @@ namespace Parser
                     num /= b;
                 }
                 else
-                {
-                    Console.WriteLine("Error");
-                    return 0;
+                {               
+                    return num;
                 }
             }
 
             return num;
         }
-
+        
+        /// <summary>
+        /// метод Num определяет цыфровые символы в строке 
+        /// до знака действия и возвращает переменную с числовым
+        /// значением в метод "Parse" в качестве аргумента
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="i"></param>
+        /// <returns></returns>
         static int Num(string s, ref int i)
         {
             string buff = "0"; 
